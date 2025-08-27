@@ -5,8 +5,8 @@ import (
     "log"
     "net/http"
     "os"
-    "room-booking-dashboard/handlers"
 
+    appHandlers "room-booking-dashboard/handlers" // alias 
     "github.com/gorilla/mux"
     "github.com/gorilla/handlers"
 )
@@ -26,7 +26,7 @@ func main() {
     corsMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
     
     // Initialize handlers
-    dashboardHandler := handlers.NewDashboardHandler()
+    dashboardHandler := appHandlers.NewDashboardHandler()
     
     // API Routes
     api := r.PathPrefix("/api/v1").Subrouter()

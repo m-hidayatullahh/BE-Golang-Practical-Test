@@ -2,10 +2,9 @@ package services
 
 import (
     "fmt"
+	"strconv"
     "room-booking-dashboard/models"
     "room-booking-dashboard/utils"
-    "strconv"
-    "time"
 )
 
 type DashboardService struct {
@@ -32,9 +31,14 @@ func (s *DashboardService) GetDashboardSummary(year int, month int) (*models.Das
 
     // Create consumption map for easy lookup
     consumptionMap := make(map[int]string)
-    for _, c := range consumptions {
-        consumptionMap[c.ID] = c.Name
+for _, c := range consumptions {
+    idInt, err := strconv.Atoi(c.ID)
+    if err != nil {
+        continue // atau handle error sesuai kebutuhan
     }
+    consumptionMap[idInt] = c.Name
+}
+
 
     // Filter bookings by period
     filteredBookings := s.filterBookingsByPeriod(bookings, year, month)
